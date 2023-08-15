@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vigilance2/map.dart';
 
 void main() {
   runApp(MyApp());
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: _buildMap(), // Adding the map here
+            child: MapWidget(), // Adding the map here
           ),
         ],
       ),
@@ -106,23 +107,23 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  Widget _buildMap() {
-    final LatLng center = const LatLng(19.184818, 72.834495); // Initial map coordinates
-
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(
-        target: center,
-        zoom: 11,
-      ),
-      markers: {
-        Marker(
-          markerId: MarkerId('markerId'),
-          position: center,
-          infoWindow: InfoWindow(title: 'Marker Title'),
-        ),
-      },
-    );
-  }
+  // Widget _buildMap() {
+  //   final LatLng center = const LatLng(19.184818, 72.834495); // Initial map coordinates
+  //
+  //   return GoogleMap(
+  //     initialCameraPosition: CameraPosition(
+  //       target: center,
+  //       zoom: 11,
+  //     ),
+  //     markers: {
+  //       Marker(
+  //         markerId: MarkerId('markerId'),
+  //         position: center,
+  //         infoWindow: InfoWindow(title: 'Marker Title'),
+  //       ),
+  //     },
+  //   );
+  // }
   Widget _buildSidebarButton(String title, IconData icon, bool showText) {
     return GestureDetector(
       onTap: () {

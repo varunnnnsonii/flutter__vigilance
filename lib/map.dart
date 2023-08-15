@@ -1,46 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapsPage extends StatelessWidget {
+class MapWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Google Maps Page'),
-      ),
-      body: MapWidget(),
-    );
-  }
-}
+    final LatLng center = const LatLng(19.184818, 72.834495); // Initial map coordinates
 
-class MapWidget extends StatefulWidget {
-  @override
-  _MapWidgetState createState() => _MapWidgetState();
-}
-
-class _MapWidgetState extends State<MapWidget> {
-  late GoogleMapController mapController;
-
-  final LatLng _initialPosition = const LatLng(37.7749, -122.4194); // Initial map coordinates
-
-  @override
-  void dispose() {
-    mapController.dispose();
-    super.dispose();
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return GoogleMap(
-      onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(
-        target: _initialPosition,
+        target: center,
         zoom: 11,
       ),
+      markers: {
+        Marker(
+          markerId: MarkerId('markerId'),
+          position: center,
+          infoWindow: InfoWindow(title: 'Marker Title'),
+        ),
+      },
     );
   }
 }
