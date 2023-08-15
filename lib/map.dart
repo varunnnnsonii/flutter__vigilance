@@ -15,7 +15,7 @@ class MapWidget extends StatelessWidget {
         Marker(
           markerId: MarkerId('markerId'),
           position: center,
-          infoWindow: InfoWindow(title: 'Marker Title'),
+          infoWindow: InfoWindow(title: 'Pritesh Gay'),
         ),
       },
     );
