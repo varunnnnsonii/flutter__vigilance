@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:vigilance2/map.dart';
 
 void main() {
@@ -42,16 +42,15 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          Row(
-            children: [
-              if (_isSidebarOpen) _buildSidebar(),
-              Expanded(
-                child: Container(
-                  color: Colors.grey[200],
-                ),
-              ),
-            ],
-          ),
+          MapWidget(), // Move the map widget to the bottom of the stack
+          if (_isSidebarOpen) // Conditionally add the sidebar based on the `_isSidebarOpen` value
+            Positioned(
+              top: AppBar().preferredSize.height-56,
+              left: 0,
+              bottom: 0,
+              width: _isSidebarOpen ? 175 : 80,
+              child: _buildSidebar(),
+            ),
           Positioned(
             top: AppBar().preferredSize.height - 35,
             left: 20,
@@ -68,13 +67,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Positioned(
-            top: AppBar().preferredSize.height,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: MapWidget(), // Adding the map here
-          ),
         ],
       ),
     );
@@ -83,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildSidebar() {
     return Container(
       width: _isSidebarOpen ? 175 : 80,
-      color: Color(0xFFCCCC2A),
+      color: Color(0xFF000000),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
