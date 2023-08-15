@@ -1,75 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:math' as math; // Import the math library
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 
-class MapWidget extends StatelessWidget {
+const String kGoogleApiKey = 'AIzaSyComx15z_rWtMJMHhg3oGTwQHOW5Jv_eqU';
+
+class MapWidget extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final LatLng center = const LatLng(19.184818, 72.834495); // Initial map coordinates
+  _MapWidgetState createState() => _MapWidgetState();
+}
 
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(
-        target: center,
-        zoom: 11,
-      ),
+class _MapWidgetState extends State<MapWidget> {
+  GoogleMapController? _mapController;
+  Position? _currentPosition;
+  CameraPosition? _initialCameraPosition;
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+  Marker? _policeMarker;
 
-      markers:
-        _createMarkers(center), // Call the function to create markers
-
+  Future<void> _getCurrentLocation() async {
+    final position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
     );
-  }
-  Set<Marker> _createMarkers(LatLng center) {
-    final Set<Marker> markers = {};
 
-    // Generate a set number of blue (police) and green (CCTV) markers
-    final int numMarkers = 30; // Increase the total number of markers for variety
-    final math.Random random = math.Random();
+    if (position != null) {
+      final placesResponse = await _places.searchNearbyWithRadius(
+        Location(lat: position.latitude, lng: position.longitude),
+        1000,
+        type: 'police',
+      );
 
-    int policeStations = random.nextInt(3) + 1; // Random between 1 and 3
-    int cctvs = random.nextInt(21) + 5; // Random between 5 and 25
+      if (placesResponse.status == 'OK' && placesResponse.results.isNotEmpty) {
+        final place = placesResponse.results.first;
+        final LatLng policeStationLatLng =
+        LatLng(place.geometry!.location.lat, place.geometry!.location.lng);
 
-    for (int i = 0; i < numMarkers; i++) {
-      double lat = center.latitude + _randomInRange(-0.009, 0.009);
-      double lng = center.longitude + _randomInRange(-0.009, 0.009);
-
-      String markerTitle;
-      BitmapDescriptor markerIcon;
-
-      if (policeStations > 0) {
-        markerTitle = 'Police Station';
-        markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
-        policeStations--;
-      } else if (cctvs > 0) {
-        markerTitle = 'CCTV';
-        markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
-        cctvs--;
+        setState(() {
+          _currentPosition = position;
+          _initialCameraPosition = CameraPosition(
+            target: policeStationLatLng,
+            zoom: 15,
+          );
+          _policeMarker = Marker(
+            markerId: MarkerId('police_station'),
+            position: policeStationLatLng,
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+          );
+        });
       } else {
-        break; // No more police stations or CCTVs to place
+        setState(() {
+          _currentPosition = position;
+          _initialCameraPosition = CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 15,
+          );
+        });
       }
+    }
+  }
 
+  Set<Marker> _createMarkers(LatLng center) {
+    Set<Marker> markers = {};
+
+    if (_policeMarker != null) {
+      markers.add(_policeMarker!);
+    }
+
+    if (_currentPosition != null) {
       markers.add(
         Marker(
-          markerId: MarkerId('markerId_$i'),
-          position: LatLng(lat, lng),
-          icon: markerIcon,
-          infoWindow: InfoWindow(title: markerTitle),
+          markerId: MarkerId('center_marker'),
+          position: LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+          icon: BitmapDescriptor.defaultMarker,
         ),
       );
     }
 
-    // Add central marker with red color
-    markers.add(
-      Marker(
-        markerId: MarkerId('centerMarker'),
-        position: center,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      ),
-    );
-
     return markers;
   }
 
-  double _randomInRange(double min, double max) {
-    return min + math.Random().nextDouble() * (max - min);
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    CameraPosition cameraPosition = _currentPosition != null
+        ? CameraPosition(
+      target: LatLng(
+        _currentPosition!.latitude,
+        _currentPosition!.longitude,
+      ),
+      zoom: 11,
+    )
+        : _initialCameraPosition!;
+
+    return GoogleMap(
+      initialCameraPosition: cameraPosition,
+      onMapCreated: (controller) {
+        setState(() {
+          _mapController = controller;
+        });
+      },
+      markers: _createMarkers(cameraPosition.target),
+    );
   }
 }
