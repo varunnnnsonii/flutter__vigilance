@@ -231,9 +231,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
 
 void main() {
   runApp(MyApp());
+}
+
+class LocationData {
+  final String name;
+  final double latitude;
+  final double longitude;
+
+  LocationData({
+    required this.name,
+    required this.latitude,
+    required this.longitude,
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -249,18 +263,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LocationData {
-  final String name;
-  final double latitude;
-  final double longitude;
-
-  LocationData({
-    required this.name,
-    required this.latitude,
-    required this.longitude,
-  });
-}
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -269,17 +271,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController? _mapController;
   Set<Marker> _markers = {};
-  LocationData? _selectedLocation;
+  List<LocationData> _locations = [];
 
   static final CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(37.7749, -122.4194), // San Francisco's coordinates
+    target: LatLng(19.163738, 72.837762), // San Francisco's coordinates
     zoom: 12,
   );
 
   @override
   void initState() {
     super.initState();
+    _loadLocations();
     _getCurrentLocation();
+  }
+
+  Future<void> _loadLocations() async {
+    final String data = await rootBundle.loadString('assets/anaums.csv');
+    List<List<dynamic>> csvTable = CsvToListConverter().convert(data);
+    csvTable.removeAt(0); // Remove header row
+
+    _locations = csvTable.map((row) {
+      return LocationData(
+        name: row[1].toString(),
+        latitude: double.parse(row[3].toString()),
+        longitude: double.parse(row[4].toString()),
+      );
+    }).toList();
   }
 
   Future<void> _getCurrentLocation() async {
@@ -292,7 +309,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onLocationSelected(LocationData location) {
     setState(() {
-      _selectedLocation = location;
       _markers.clear();
       _markers.add(
         Marker(
@@ -331,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               children: [
                 DropdownButton<LocationData>(
-                  items: locations.map((location) {
+                  items: _locations.map((location) {
                     return DropdownMenuItem<LocationData>(
                       value: location,
                       child: Text(location.name),
@@ -340,15 +356,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (selectedLocation) {
                     _onLocationSelected(selectedLocation!);
                   },
-                  value: _selectedLocation,
                   hint: Text('Select a location'),
                 ),
-                SizedBox(height: 16),
-                if (_selectedLocation != null)
-                  Text(
-                    'Selected Location: ${_selectedLocation!.name}',
-                    style: TextStyle(fontSize: 16),
-                  ),
               ],
             ),
           ),
@@ -356,11 +365,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  static final List<LocationData> locations = [
-    LocationData(name: 'Location A', latitude: 19.7749, longitude: -122.4194),
-    LocationData(name: 'Location B', latitude: 37.7740, longitude: -122.4149),
-    LocationData(name: 'Location C', latitude: 37.7732, longitude: -122.4135),
-  ];
 }
+
 
