@@ -33,7 +33,7 @@ class _SearchBarState extends State<SearchBar> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
           child: Center(
             child: TextField(
               decoration: InputDecoration(
