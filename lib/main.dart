@@ -274,8 +274,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<LocationData> _locations = [];
 
   static const CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(37.7749, -122.4194), // San Francisco's coordinates
-    zoom: 12,
+    target: LatLng(19.174472, 72.866), // San Francisco's coordinates
+    zoom: 15,
   );
 
   bool _isLocationMenuOpen = false;
