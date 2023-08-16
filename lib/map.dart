@@ -32,7 +32,7 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   Widget build(BuildContext context) {
     if (_currentPosition == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: Text("loading map"));
     }
 
     final LatLng center =

@@ -10,7 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: Stack(
+        children: [
+          MapWidget(), // Full-screen map
+          HomePage(), // Overlay home page content
+        ],
+      ),
     );
   }
 }
@@ -31,7 +36,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
