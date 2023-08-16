@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vigilance2/map.dart';
 
 void main() {
@@ -27,6 +26,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isSidebarOpen = false;
+  bool _isSearchBarOpen = false;
 
   void _toggleSidebar() {
     setState(() {
@@ -34,11 +34,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _toggleSearchBar() {
+    setState(() {
+      _isSearchBarOpen = !_isSearchBarOpen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -52,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           MapWidget(), // Move the map widget to the bottom of the stack
           if (_isSidebarOpen) // Conditionally add the sidebar based on the `_isSidebarOpen` value
             Positioned(
-              top: AppBar().preferredSize.height-56,
+              top: AppBar().preferredSize.height - 56,
               left: 0,
               bottom: 0,
               width: _isSidebarOpen ? 175 : 80,
@@ -74,6 +78,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          Positioned(
+            top: AppBar().preferredSize.height - 45, // Adjust the top padding
+            right: 20,
+            child: ElevatedButton(
+              onPressed: _toggleSearchBar,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                shape: CircleBorder(),
+              ),
+              child: Icon(Icons.search, color: Colors.black),
+            ),
+          ),
+          if (_isSearchBarOpen)
+            Positioned(
+              top: AppBar().preferredSize.height + 20, // Adjust the top padding
+              right: 20,
+              left: 20,
+              child: SearchBar(),
+            ),
         ],
       ),
     );
@@ -106,23 +129,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  // Widget _buildMap() {
-  //   final LatLng center = const LatLng(19.184818, 72.834495); // Initial map coordinates
-  //
-  //   return GoogleMap(
-  //     initialCameraPosition: CameraPosition(
-  //       target: center,
-  //       zoom: 11,
-  //     ),
-  //     markers: {
-  //       Marker(
-  //         markerId: MarkerId('markerId'),
-  //         position: center,
-  //         infoWindow: InfoWindow(title: 'Marker Title'),
-  //       ),
-  //     },
-  //   );
-  // }
+
   Widget _buildSidebarButton(String title, IconData icon, bool showText) {
     return GestureDetector(
       onTap: () {
@@ -187,7 +194,7 @@ class ContactPage extends StatelessWidget {
         title: Text('Contact Page'),
       ),
       body: Center(
-
+        child: Text('This is the contact page.'),
       ),
     );
   }

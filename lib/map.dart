@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class MapWidget extends StatefulWidget {
   @override
@@ -9,7 +10,8 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   GoogleMapController? _mapController;
-  Position? _currentPosition;
+  LatLng? _currentPosition;
+  List<Marker> _policeStationMarkers = [];
 
   @override
   void initState() {
@@ -22,10 +24,43 @@ class _MapWidgetState extends State<MapWidget> {
       final position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       setState(() {
-        _currentPosition = position;
+        _currentPosition = LatLng(position.latitude, position.longitude);
       });
+      _searchNearbyPoliceStations();
     } catch (e) {
       print('Error getting location: $e');
+    }
+  }
+
+  Future<void> _searchNearbyPoliceStations() async {
+    if (_currentPosition == null) return;
+
+    final places = GoogleMapsPlaces(apiKey: 'YOUR_GOOGLE_PLACES_API_KEY');
+    final response = await places.searchNearbyWithRadius(
+      Location(
+        lat: _currentPosition!.latitude,
+        lng: _currentPosition!.longitude,
+      ),
+      1000, // Radius in meters (adjust as needed)
+      type: 'police', // Search for police stations
+    );
+
+    if (response.isOkay) {
+      _policeStationMarkers.clear();
+      for (var result in response.results) {
+        _policeStationMarkers.add(
+          Marker(
+            markerId: MarkerId(result.id!),
+            position: LatLng(
+                result.geometry!.location.lat, result.geometry!.location.lng),
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+            infoWindow: InfoWindow(title: result.name!),
+          ),
+        );
+      }
+      setState(() {});
+    } else {
+      print('Error searching for police stations: ${response.errorMessage}');
     }
   }
 
@@ -35,26 +70,17 @@ class _MapWidgetState extends State<MapWidget> {
       return const Center(child: Text("loading map"));
     }
 
-    final LatLng center =
-    LatLng(_currentPosition!.latitude, _currentPosition!.longitude);
-
     return GoogleMap(
       initialCameraPosition: CameraPosition(
-        target: center,
-        zoom: 11,
+        target: _currentPosition!,
+        zoom: 15,
       ),
       onMapCreated: (controller) {
         setState(() {
           _mapController = controller;
         });
       },
-      markers: Set<Marker>.from([
-        Marker(
-          markerId: MarkerId('centerMarker'),
-          position: center,
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        ),
-      ]),
+      markers: Set<Marker>.from(_policeStationMarkers),
     );
   }
 }
