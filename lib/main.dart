@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vigilance2/map.dart';
-
+import 'package:vigilance2/searchbar.dart'; // Remove this line
+import 'searchbar.dart';
 void main() {
   runApp(MyApp());
 }
@@ -85,20 +86,22 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           if (_isSearchBarOpen)
-            Positioned(
-              top: AppBar().preferredSize.height -40,
-              height: 36,//
-              right: 38,
-              left: 65,
-              child: AnimatedOpacity(
-                opacity: _isSidebarOpen ? 0 : 1,
-                duration: Duration(milliseconds: 500),
-                child:SearchBar()
+            Container(
+              color: Colors.white, // For debugging purposes
+              child: Positioned(
+                top: AppBar().preferredSize.height - 40,
+                height: 36,
+                right: 38,
+                left: 65,
+                child: AnimatedOpacity(
+                  opacity: _isSidebarOpen ? 0 : 1,
+                  duration: Duration(milliseconds: 500),
+                  child: CustomSearchBar(), // Use your custom search bar widget here
+                ),
               ),
-
             ),
           Positioned(
-            top: AppBar().preferredSize.height - 45, // Adjust the top padding
+            top: AppBar().preferredSize.height - 48, // Adjust the top padding
             right: 25,
             child: ElevatedButton(
               onPressed: _toggleSearchBar,

@@ -1,30 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
-class SearchBar extends StatefulWidget {
-  final void Function(String) onSearch;
-
-  SearchBar({required this.onSearch});
-
+class CustomSearchBar extends StatefulWidget {
   @override
-  _SearchBarState createState() => _SearchBarState();
+  _CustomSearchBarState createState() => _CustomSearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
-  List<String> suggestions = [];
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  List<String> dropdownOptions = [];
+  String? selectedOption;
 
   @override
   void initState() {
     super.initState();
-    _loadSuggestions();
+    loadDropdownOptions();
   }
 
-  Future<void> _loadSuggestions() async {
-    final data = await DefaultAssetBundle.of(context).loadString('assets/locations.csv');
-    final List<String> lines = LineSplitter.split(data).toList();
+  Future<void> loadDropdownOptions() async {
+    String csvData = await rootBundle.loadString('assets/locations.csv');
+    List<String> lines = csvData.split('\n');
     setState(() {
-      suggestions = lines;
+      dropdownOptions = lines;
     });
   }
 
@@ -32,36 +29,22 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for a road',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onChanged: (value) {
-                widget.onSearch(value); // Call the onSearch function provided by the parent
-              },
-            ),
-          ),
+        DropdownButton<String>(
+          items: dropdownOptions.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              selectedOption = newValue;
+            });
+          },
+          value: selectedOption,
+          hint: Text('Select a location'),
         ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: suggestions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(suggestions[index]),
-                onTap: () {
-                  widget.onSearch(suggestions[index]); // Call the onSearch function provided by the parent
-                },
-              );
-            },
-          ),
-        ),
+        // Add other search bar components here
       ],
     );
   }
