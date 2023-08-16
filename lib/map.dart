@@ -97,7 +97,14 @@ class _MapWidgetState extends State<MapWidget> {
         });
         centerMapToLocation(19.174472, 72.866);
       },
-      markers: Set<Marker>.from([..._policeStationMarkers, ..._hiddenMarkers]),
+      markers:<Marker>{
+    // Center marker
+    Marker(
+        markerId: MarkerId('centerMarker'),
+    position: _currentPosition!,
+    icon: BitmapDescriptor.defaultMarker,
+    ),
+    }, // Include only the center marker
     );
   }
 
