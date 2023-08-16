@@ -78,25 +78,33 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          if (_isSearchBarOpen)
+            Positioned(
+              top: AppBar().preferredSize.height -39,
+              height: 36,//
+              right: 38,
+              left: 65,
+              child: AnimatedOpacity(
+                opacity: _isSidebarOpen ? 0 : 1,
+                duration: Duration(milliseconds: 500),
+                child:SearchBar()
+              ),
+
+            ),
           Positioned(
             top: AppBar().preferredSize.height - 45, // Adjust the top padding
-            right: 20,
+            right: 25,
             child: ElevatedButton(
               onPressed: _toggleSearchBar,
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
+                primary: Colors.white, // Set the background color to transparent
                 shape: CircleBorder(),
+                padding: EdgeInsets.all( 6), // Adjust padding for the icon
               ),
               child: Icon(Icons.search, color: Colors.black),
             ),
           ),
-          if (_isSearchBarOpen)
-            Positioned(
-              top: AppBar().preferredSize.height + 20, // Adjust the top padding
-              right: 20,
-              left: 20,
-              child: SearchBar(),
-            ),
+
         ],
       ),
     );

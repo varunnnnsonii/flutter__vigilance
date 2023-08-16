@@ -24,19 +24,21 @@ class _SearchBarState extends State<SearchBar> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search for police stations',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+          padding: const EdgeInsets.all(30),
+          child: Center(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search for police stations',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
+              onChanged: (value) {
+                // You can implement search functionality here
+                // For example, filter the suggestions list based on the entered value
+              },
             ),
-            onChanged: (value) {
-              // You can implement search functionality here
-              // For example, filter the suggestions list based on the entered value
-            },
           ),
         ),
         Expanded(
