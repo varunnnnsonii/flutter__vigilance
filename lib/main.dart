@@ -273,10 +273,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Set<Marker> _markers = {};
   List<LocationData> _locations = [];
 
-  static final CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(19.163738, 72.837762), // San Francisco's coordinates
+  static const CameraPosition initialCameraPosition = CameraPosition(
+    target: LatLng(37.7749, -122.4194), // San Francisco's coordinates
     zoom: 12,
   );
+
+  bool _isLocationMenuOpen = false;
+  bool _isOverlayOpen = false;
 
   @override
   void initState() {
@@ -325,46 +328,101 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _toggleLocationMenu() {
+    setState(() {
+      _isLocationMenuOpen = !_isLocationMenuOpen;
+    });
+  }
+
+  void _toggleOverlay() {
+    setState(() {
+      _isOverlayOpen = !_isOverlayOpen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location App'),
+        title: Image.asset(
+          'assets/logo.png',
+          width: 40,
+        ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: GoogleMap(
-              initialCameraPosition: initialCameraPosition,
-              onMapCreated: (controller) {
-                _mapController = controller;
-              },
-              markers: _markers,
-            ),
+          GoogleMap(
+            initialCameraPosition: initialCameraPosition,
+            onMapCreated: (controller) {
+              _mapController = controller;
+            },
+            markers: _markers,
           ),
-          Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
+          if (_isOverlayOpen)
+            GestureDetector(
+              onTap: _toggleOverlay,
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                alignment: Alignment.center,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    'This is a placeholder message for the overlay.',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _toggleLocationMenu,
+        child: Icon(Icons.menu),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomSheet: _isLocationMenuOpen
+          ? Container(
+        height: MediaQuery.of(context).size.height / 3,
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                DropdownButton<LocationData>(
-                  items: _locations.map((location) {
-                    return DropdownMenuItem<LocationData>(
-                      value: location,
-                      child: Text(location.name),
-                    );
-                  }).toList(),
-                  onChanged: (selectedLocation) {
-                    _onLocationSelected(selectedLocation!);
-                  },
-                  hint: Text('Select a location'),
+                IconButton(
+                  onPressed: _toggleLocationMenu,
+                  icon: Icon(Icons.close),
                 ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: _locations.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_locations[index].name),
+                    onTap: () {
+                      _onLocationSelected(_locations[index]);
+                      _toggleLocationMenu();
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      )
+          : null,
+      drawer: Drawer(
+        child: SizedBox(),
       ),
     );
   }
 }
-
 
