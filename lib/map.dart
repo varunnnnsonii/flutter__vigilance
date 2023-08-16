@@ -4,9 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class MapWidget extends StatefulWidget {
-  final void Function(String roadName) onSearchByRoadName;
 
-  MapWidget({required this.onSearchByRoadName});
 
   // Define a GlobalKey to access the MapWidget's state
   static final GlobalKey<_MapWidgetState> mapKey = GlobalKey<_MapWidgetState>();
@@ -73,12 +71,8 @@ class _MapWidgetState extends State<MapWidget> {
     }
   }
 
-  // Function to search by road name
-  void searchByRoadName(String roadName) {
-    // Implement your search logic here
-    // Update the map location and add markers based on the road name
-    widget.onSearchByRoadName(roadName);
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
