@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vigilance2/map.dart';
 import 'package:vigilance2/searchbar.dart'; // Remove this line
 import 'searchbar.dart';
+import 'package:vigilance2/panel.dart';
 void main() {
   runApp(MyApp());
 }
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
               width: _isSidebarOpen ? 175 : 80,
               child: _buildSidebar(),
             ),
+
           Positioned(
             top: AppBar().preferredSize.height - 35,
             left: 20,
@@ -85,6 +87,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
           if (_isSearchBarOpen)
             Positioned(
                 top: AppBar().preferredSize.height - 40,
@@ -95,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                   child: CustomSearchBar(), // Use your custom search bar widget here
                 ),
               ),
+
 
           Positioned(
             top: AppBar().preferredSize.height - 48, // Adjust the top padding
@@ -109,6 +113,20 @@ class _HomePageState extends State<HomePage> {
               child: Icon(Icons.search, color: Colors.black),
             ),
           ),
+          Positioned(
+            // Add the SlidingUpPanel here
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 65,
+            child: SlidingPanel(
+              panelContent: Container(
+                // Customize your panel content here
+                child: Center(
+                  child: Text('Sliding Panel Content'),
+                ),
+              ),
+            ),),
 
         ],
       ),
