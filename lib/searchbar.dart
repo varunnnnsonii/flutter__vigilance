@@ -1,12 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'package:csv/csv.dart';
 
 import 'map.dart';
 
 class CustomSearchBar extends StatefulWidget {
+  const CustomSearchBar({Key? key}) : super(key: key);
+
+
   @override
   _CustomSearchBarState createState() => _CustomSearchBarState();
 }
@@ -31,7 +32,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   Future<void> _loadSuggestions() async {
     final data = await rootBundle.loadString('assets/anaums.csv');
-    csvTable = CsvToListConverter().convert(data);
+    csvTable = const CsvToListConverter().convert(data);
 
     setState(() {
       suggestions = csvTable.map((row) => row[1].toString()).toList();
@@ -50,7 +51,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         color: Colors.white,
       ),
@@ -71,6 +72,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   if (rowIndex >= 0 && rowIndex < csvTable.length) {
                     lat = csvTable[rowIndex][3];
                     long = csvTable[rowIndex][4];
+                    // _onLocationSelected(lat!, long!);
                     // pDist = int.parse(csvTable[rowIndex][5].toString());
                     // criRate = int.parse(csvTable[rowIndex][6].toString());
                     // cctvCam = int.parse(csvTable[rowIndex][7].toString());
@@ -83,7 +85,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 });
               },
               value: selectedOption,
-              hint: Text('Select a location'),
+              hint: const Text('Select a location'),
             ),
           ],
         ),

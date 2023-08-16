@@ -30,12 +30,6 @@ class _MapWidgetState extends State<MapWidget> {
     _getCurrentLocation();
   }
 
-  void centerMapToLocation(double lat, double long) {
-    _mapController?.animateCamera(
-      CameraUpdate.newLatLng(LatLng(lat, long)),
-    );
-  }
-
   Future<void> _getCurrentLocation() async {
     try {
       final position = await Geolocator.getCurrentPosition(
@@ -87,6 +81,14 @@ class _MapWidgetState extends State<MapWidget> {
     // Implement your search logic here
     // Update the map location and add markers based on the road name
     widget.onSearchByRoadName(roadName);
+  }
+
+  void centerMapToLocation(double lat, double long) {
+    if (_mapController != null) {
+      _mapController!.animateCamera(
+        CameraUpdate.newLatLng(LatLng(lat, long)),
+      );
+    }
   }
 
   @override
