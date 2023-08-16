@@ -95,7 +95,8 @@ class _HomePageState extends State<HomePage> {
                 child: AnimatedOpacity(
                   opacity: _isSidebarOpen ? 0 : 1,
                   duration: Duration(milliseconds: 500),
-                  child: CustomSearchBar(), // Use your custom search bar widget here
+                  child:
+                  CustomSearchBar(), // Use your custom search bar widget here
                 ),
               ),
 

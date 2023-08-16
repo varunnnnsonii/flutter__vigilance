@@ -66,13 +66,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 );
               }).toList(),
               onChanged: (newValue) {
+                print('Dropdown option selected: $newValue');
                 setState(() {
                   selectedOption = newValue;
                   final rowIndex = suggestions.indexOf(newValue!);
                   if (rowIndex >= 0 && rowIndex < csvTable.length) {
                     lat = csvTable[rowIndex][3];
                     long = csvTable[rowIndex][4];
-                    // _onLocationSelected(lat!, long!);
+                    _onLocationSelected(lat!, long!);
+                    //_onLocationSelected(19.174472, 72.866);
                     // pDist = int.parse(csvTable[rowIndex][5].toString());
                     // criRate = int.parse(csvTable[rowIndex][6].toString());
                     // cctvCam = int.parse(csvTable[rowIndex][7].toString());
@@ -80,7 +82,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     // Center map to the selected location
                     MapWidget.mapKey.currentState?.centerMapToLocation(lat!, long!);
 
-                    print('Lat: $lat, Long: $long');
+                    //print('Lat: $lat, Long: $long');
                   }
                 });
               },

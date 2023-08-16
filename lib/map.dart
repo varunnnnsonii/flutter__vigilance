@@ -6,7 +6,6 @@ import 'package:google_maps_webservice/places.dart';
 class MapWidget extends StatefulWidget {
   final void Function(String roadName) onSearchByRoadName;
 
-
   MapWidget({required this.onSearchByRoadName});
 
   // Define a GlobalKey to access the MapWidget's state
@@ -21,8 +20,6 @@ class _MapWidgetState extends State<MapWidget> {
   LatLng? _currentPosition;
   List<Marker> _policeStationMarkers = [];
   List<Marker> _hiddenMarkers = []; // List for hidden markers
-
-
 
   @override
   void initState() {
@@ -56,7 +53,6 @@ class _MapWidgetState extends State<MapWidget> {
       type: 'police', // Search for police stations
     );
 
-
     if (response.isOkay) {
       _policeStationMarkers.clear();
       for (var result in response.results) {
@@ -65,7 +61,8 @@ class _MapWidgetState extends State<MapWidget> {
             markerId: MarkerId(result.id!),
             position: LatLng(
                 result.geometry!.location.lat, result.geometry!.location.lng),
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
             infoWindow: InfoWindow(title: result.name!),
           ),
         );
@@ -81,14 +78,6 @@ class _MapWidgetState extends State<MapWidget> {
     // Implement your search logic here
     // Update the map location and add markers based on the road name
     widget.onSearchByRoadName(roadName);
-  }
-
-  void centerMapToLocation(double lat, double long) {
-    if (_mapController != null) {
-      _mapController!.animateCamera(
-        CameraUpdate.newLatLng(LatLng(lat, long)),
-      );
-    }
   }
 
   @override
@@ -107,7 +96,20 @@ class _MapWidgetState extends State<MapWidget> {
           _mapController = controller;
         });
       },
-      markers: Set<Marker>.from([..._policeStationMarkers, ..._hiddenMarkers]), // Include hidden markers
+      markers: Set<Marker>.from([..._policeStationMarkers, ..._hiddenMarkers]),
     );
+  }
+
+  void centerMapToLocation(double lat, double long) {
+    if (_mapController != null) {
+      Future.delayed(Duration(milliseconds: 5), () {
+        print("1");
+        _mapController!.animateCamera(
+          CameraUpdate.newLatLng(LatLng(lat, long)),
+        );
+        print("2");
+      });
+    }
+    print('Lat: $lat, Long: $long');
   }
 }
