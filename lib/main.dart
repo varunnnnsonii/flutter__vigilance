@@ -185,7 +185,7 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications Page'),
+        title: Text('THis is Notifications Page'),
       ),
       body: Center(
         child: Text('This is the notifications page.'),
