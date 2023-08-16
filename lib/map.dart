@@ -6,6 +6,7 @@ import 'package:google_maps_webservice/places.dart';
 class MapWidget extends StatefulWidget {
   final void Function(String roadName) onSearchByRoadName;
 
+
   MapWidget({required this.onSearchByRoadName});
 
   // Define a GlobalKey to access the MapWidget's state
@@ -19,11 +20,20 @@ class _MapWidgetState extends State<MapWidget> {
   GoogleMapController? _mapController;
   LatLng? _currentPosition;
   List<Marker> _policeStationMarkers = [];
+  List<Marker> _hiddenMarkers = []; // List for hidden markers
+
+
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
+  }
+
+  void centerMapToLocation(double lat, double long) {
+    _mapController?.animateCamera(
+      CameraUpdate.newLatLng(LatLng(lat, long)),
+    );
   }
 
   Future<void> _getCurrentLocation() async {
@@ -51,6 +61,7 @@ class _MapWidgetState extends State<MapWidget> {
       1000, // Radius in meters (adjust as needed)
       type: 'police', // Search for police stations
     );
+
 
     if (response.isOkay) {
       _policeStationMarkers.clear();
@@ -94,7 +105,7 @@ class _MapWidgetState extends State<MapWidget> {
           _mapController = controller;
         });
       },
-      markers: Set<Marker>.from(_policeStationMarkers),
+      markers: Set<Marker>.from([..._policeStationMarkers, ..._hiddenMarkers]), // Include hidden markers
     );
   }
 }

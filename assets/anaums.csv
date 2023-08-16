@@ -1,0 +1,92 @@
+Row Number,Road Name,Location,Latitude,Longitude,Distance from Police Station (km),Crime Rate,CCtv Cameras
+1,Aarey Road goregaon east,Goregaon,19.165983,72.860949,0.5,1.5,5
+2,Arun Kumar Vaidya Marg,Goregaon,19.175651,72.87258,0.2,1.2,3
+3,Yashodham Vidyala Marg,Goregaon,19.174472,72.866,0.3,1.8,6
+4,Mohan Gokhale Rd East,Goregaon,19.169686,72.860132,0.4,1.1,4
+5,Aba Karmarkar Rd East,Goregaon,19.170541,72.864597,0.6,1.3,3
+6,Kanyapada Rd East,Goregaon,19.175306,72.870773,0.7,1.8,4
+7,Krishna Vatika Marg,Goregaon,19.174624,72.867846,0.4,1.1,3
+8,Sai Road Gokuldham,Goregaon,19.174056,72.867534,0.2,0.3,1
+9,Film City Road,Goregaon,19.167626,72.876609,0.4,0.6,2
+10,Film City Road NNP,Goregaon,19.16487,72.879343,0.3,1.2,2
+11,SV Road Goregaon West,Goregaon,19.165745,72.845693,0.1,0.4,1
+12,Kamu Baba Road West,Goregaon,19.166825,72.845001,0.4,2,6
+13,Unnat Nagar Road 1,Goregaon,19.165584,72.843971,0.3,0.5,2
+14,Unnat Nagar Road 2,Goregaon,19.166089,72.842701,0.7,0.8,3
+15,New Link Road West,Goregaon,19.166951,72.835113,0.2,0.5,2
+16,Sitaram Patkar Road West,Goregaon,19.169913,72.846432,0.4,1.5,4
+17,Gaiwadi Road,Goregaon,19.171615,72.847017,0.2,0.6,1
+18,Veer Savarkar Flyover West,Goregaon,19.17389,72.849646,0.2,0.4,1
+19,Rd No. 4 Pandurang Wadi 1,Goregaon,19.172497,72.852008,0.3,1.4,4
+20,Rd No. 4 Pandurang Wadi 2,Goregaon,19.172614,72.85049,0.5,1.1,3
+21,Westin Garden Road East,Goregaon,19.171106,72.85944,0.1,1.2,5
+22,Western Express Highway,Goregaon,19.170842,72.859118,0.4,1.5,3
+23,Vasari Hill Road West,Goregaon,19.173767,72.837548,0.2,1.6,4
+24,Raheja Marg East,Goregaon,19.180482,72.87533,0.2,0.5,2
+25,Pimpri Pada Road East,Goregaon,19.180253,72.869933,0.3,0.6,2
+26,Jain Mandir Road East,Goregaon,19.188007,72.861208,0.1,0.3,1
+27,Santaji Dhanaji Marg East,Goregaon,19.189032,72.862994,0.2,1.4,4
+28,Shivaji Nagar Road East,Malad,19.19051,72.864884,0.2,0.4,1
+29,Kurar Village Road,Goregaon,19.185537,72.858874,0.3,1,3
+30,Tanaji Nagar Road East,Goregaon,19.18996,72.862149,0.4,1.5,6
+31,Anandwadi Road East,Goregaon,19.187472,72.865452,0.2,0.6,1
+32,14-11 Anandwadi Road East,Goregaon,19.188173,72.864117,0.3,1.3,3
+33,Datta Mandir Road East,Goregaon,19.19019,72.852214,0.1,0.7,2
+34,Daftary Road East,Goregaon,19.188032,72.851454,0.4,1.5,4
+35,New Link Road Malad,Malad,19.18653,72.835834,0.2,0.5,2
+36,Mindspace West,Malad,19.18419,72.833621,0.2,1.5,3
+37,MDP Road West,Malad,19.184499,72.828318,0.4,1.8,6
+38,Ramchandra Lane West,Malad,19.188989,72.834131,0.3,0.3,1
+39,Manchubhai Road East,Malad,19.191224,72.849925,0.1,0.6,2
+40,Marwadi Chawl Lane West,Malad,19.189602,72.845772,0.3,1.2,3
+41,BJ Patel Road West,Malad,19.18764,72.841989,0.2,0.4,1
+42,Appa Pada Road East,Malad,19.190069,72.867518,0.3,1.1,4
+43,Akurli Cross Road East,Malad,19.193869,72.870288,0.3,0.7,2
+44,Akurli Road East,Malad,19.197178,72.874706,0.3,2,6
+45,Damu Nagar Road East,Malad,19.200147,72.878805,0.9,2.5,10
+46,Nirankari Baba Marg,Malad,19.198678,72.878737,0.4,1.8,4
+47,Dattani Park Road East,Malad,19.213842,72.869014,0.1,1.2,3
+48,Western Express Highway,Kandivali,19.214184,72.867961,0.3,0.8,2
+49,Magathane Service Rd E,Kandivali,19.21449,72.867948,0.3,1.5,5
+50,Evershine Road East,Kandivali,19.210199,72.875527,0.4,0.5,1
+51,N.S. Phadke Road East,Kandivali,19.208879,72.871518,0.2,1.2,2
+52,Thakur Village Rd East,Kandivali,19.211366,72.877504,0.3,0.4,1
+53,RSC Road No. 25 West,Kandivali,19.214999,72.814911,0.2,0.5,2
+54,RSC Road No. 51 West,Kandivali,19.218356,72.825849,0.1,0.3,1
+55,RSC Road No. 44 West,Kandivali,19.218267,72.826005,0.2,1.2,3
+56,Bandra Pakhadi Rd West,Kandivali,19.212524,72.832662,0.3,1.1,4
+57,NG Garden Road West,Kandivali,19.213332,72.832347,0.2,0.5,2
+58,Kaner-Dahisar Road,Dahisar,19.494226,72.865044,0.1,0.6,2
+59,Dahisar Road,Dahisar,19.496335,72.860214,0.4,0.4,1
+60,Dahisar east,Dahisar,19.490936,72.873484,0.2,1.2,3
+61,Mira Bhayandar Road,Mira Road,19.289277,72.864536,0.3,0.8,2
+62,Classic County Road,Mira Road,19.291211,72.863921,0.3,1.5,5
+63,Ramdev Park Road,Mira Road,19.291249,72.865299,0.4,0.5,1
+64,Param Pujya Shri Mataji Rd,Mira Road,19.293272,72.866426,0.2,1.2,2
+65,Kanakia Road,Mira Road,19.296861,72.876057,0.1,1.8,4
+66,Shiv Sena Gali,Mira Road,19.296763,72.876899,0.3,0.3,1
+67,Paradise Road,Mira Road,19.294495,72.876813,0.2,0.9,3
+68,Jangid Enclave Road,Mira Road,19.294399,72.876518,0.2,1.4,6
+69,Mari Gold Road,Mira Road,19.29167,72.873611,0.3,0.7,2
+70,Kanakia Mark Road,Mira Road,19.300327,72.876558,0.3,1.3,4
+71,Shrishti Road,Mira Road,19.27802,72.870734,0.1,1.5,3
+72,Jangid Estate Road,Mira Road,19.276726,72.871163,0.4,0.9,2
+73,Penkarpada Road,Mira Road,19.268904,72.869541,0.3,1.4,4
+74,Datta Mandir Road,Mira Road,19.268214,72.871487,0.3,0.7,1
+75,Shri Niranjanlalji Dalmia Rd,Mira Road,19.268751,72.870361,0.2,0.6,2
+76,Miragaon Road,Mira Road,19.267752,72.875973,0.1,0.5,1
+77,Happy Home Road,Borivali,19.23887,72.857743,0.5,2,6
+78,Sudhir Phadke Flyover West,Borivali,19.237834,72.855643,0.4,0.6,1
+79,LIC Colony Road West,Borivali,19.240026,72.85179,0.3,1.5,7
+80,IC Colony Road West,Borivali,19.242179,72.844932,0.2,1.1,4
+81,Chandavarkar Road West,Borivali,19.230163,72.841416,0.3,0.8,2
+82,Gorai 1,Borivali,19.231559,72.834453,0.3,1.5,5
+83,Lokmanya Tilak Road,Borivali,19.232049,72.831398,0.4,0.5,1
+84,Yogi Nagar Marg,Borivali,19.23396,72.83732,0.2,1.2,2
+85,Adinath Marg,Mira Road,19.235117,72.838809,0.2,1.8,4
+86,New Link Road Borivali,Borivali,19.236681,72.840787,0.1,0.3,1
+87,Kulupwadi Road,Borivali,19.230084,72.86418,0.3,0.9,3
+88,National Park-Kaneri Caves,Borivali,19.230383,72.865414,0.2,0.7,2
+89,Mahatma Gandhi Road,Borivali,19.23142,72.86157,0.1,0.6,2
+90,Jain Mandir Road East,Borivali,19.234157,72.858456,0.3,1.2,3
+91,Swami Vivekanand Marg East,Borivali,19.233999,72.858159,0.2,0.4,1

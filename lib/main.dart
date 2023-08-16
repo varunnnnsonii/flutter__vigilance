@@ -86,20 +86,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           if (_isSearchBarOpen)
-            Container(
-              color: Colors.white, // For debugging purposes
-              child: Positioned(
+            Positioned(
                 top: AppBar().preferredSize.height - 40,
-                height: 36,
-                right: 38,
-                left: 65,
+                right: 85, // Adjust the right position
                 child: AnimatedOpacity(
                   opacity: _isSidebarOpen ? 0 : 1,
                   duration: Duration(milliseconds: 500),
                   child: CustomSearchBar(), // Use your custom search bar widget here
                 ),
               ),
-            ),
+
           Positioned(
             top: AppBar().preferredSize.height - 48, // Adjust the top padding
             right: 25,
