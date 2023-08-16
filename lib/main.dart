@@ -11,13 +11,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Stack(
         children: [
-          MapWidget(), // Full-screen map
+          MapWidget(onSearchByRoadName: _onSearch), // Full-screen map
           HomePage(), // Overlay home page content
         ],
       ),
     );
   }
 }
+void _onSearch(String query) {
+  MapWidget.mapKey.currentState?.searchByRoadName(query);
+} // Call the searchByRoadName function
 
 class HomePage extends StatefulWidget {
   @override
@@ -53,7 +56,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          MapWidget(), // Move the map widget to the bottom of the stack
+          MapWidget(onSearchByRoadName: (roadName) {
+            // Call the searchByRoadName method in MapWidget
+            MapWidget.mapKey.currentState?.searchByRoadName(roadName);
+          },), // Move the map widget to the bottom of the stack
           if (_isSidebarOpen) // Conditionally add the sidebar based on the `_isSidebarOpen` value
             Positioned(
               top: AppBar().preferredSize.height - 56,
@@ -80,7 +86,7 @@ class _HomePageState extends State<HomePage> {
           ),
           if (_isSearchBarOpen)
             Positioned(
-              top: AppBar().preferredSize.height -39,
+              top: AppBar().preferredSize.height -40,
               height: 36,//
               right: 38,
               left: 65,

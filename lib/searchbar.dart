@@ -1,6 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+
+class SearchBar extends StatefulWidget {
+  final void Function(String) onSearch;
+
+  SearchBar({required this.onSearch});
+
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
 
 class _SearchBarState extends State<SearchBar> {
   List<String> suggestions = [];
@@ -12,7 +21,7 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   Future<void> _loadSuggestions() async {
-    final data = await rootBundle.loadString('assets/locations.csv');
+    final data = await DefaultAssetBundle.of(context).loadString('assets/locations.csv');
     final List<String> lines = LineSplitter.split(data).toList();
     setState(() {
       suggestions = lines;
@@ -28,15 +37,14 @@ class _SearchBarState extends State<SearchBar> {
           child: Center(
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Search for police stations',
+                hintText: 'Search for a road',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               onChanged: (value) {
-                // You can implement search functionality here
-                // For example, filter the suggestions list based on the entered value
+                widget.onSearch(value); // Call the onSearch function provided by the parent
               },
             ),
           ),
@@ -48,7 +56,7 @@ class _SearchBarState extends State<SearchBar> {
               return ListTile(
                 title: Text(suggestions[index]),
                 onTap: () {
-                  // Implement your logic when a suggestion is tapped
+                  widget.onSearch(suggestions[index]); // Call the onSearch function provided by the parent
                 },
               );
             },
