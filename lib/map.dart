@@ -95,6 +95,7 @@ class _MapWidgetState extends State<MapWidget> {
         setState(() {
           _mapController = controller;
         });
+        centerMapToLocation(19.174472, 72.866);
       },
       markers: Set<Marker>.from([..._policeStationMarkers, ..._hiddenMarkers]),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
-
-import 'map.dart';
+import 'package:vigilance2/map.dart';
 
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({Key? key}) : super(key: key);
@@ -73,7 +72,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   if (rowIndex >= 0 && rowIndex < csvTable.length) {
                     lat = csvTable[rowIndex][3];
                     long = csvTable[rowIndex][4];
-                    _onLocationSelected(lat!, long!);
+                    //_onLocationSelected(lat!, long!);
                     //_onLocationSelected(19.174472, 72.866);
                     // pDist = int.parse(csvTable[rowIndex][5].toString());
                     // criRate = int.parse(csvTable[rowIndex][6].toString());
