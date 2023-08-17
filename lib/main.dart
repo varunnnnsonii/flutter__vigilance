@@ -1,32 +1,5 @@
 import 'package:flutter/material.dart';
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Stack(
-//         children: [
-//           MapWidget(), // Full-screen map
-//           HomePage(), // Overlay home page content
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-//
-// class HomePage extends StatefulWidget {
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-//
-// class _HomePageState extends State<HomePage> {
-//   bool _isSidebarOpen = false;
-//   bool _isSearchBarOpen = false;
-//
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,10 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Safety> _safety = [];
 
   static const CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(19.174472, 72.866), // San Francisco's coordinates
+    target: LatLng(19.174472, 72.866),
     zoom: 15,
   );
-  int _selectedListIndex = 0; // Default value
+  int _selectedListIndex = 0;
 
   bool _isLocationMenuOpen = false;
   bool _isOverlayOpen = false;
@@ -102,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _loadLocations() async {
     final String data = await rootBundle.loadString('assets/anaums.csv');
     List<List<dynamic>> csvTable = const CsvToListConverter().convert(data);
-    csvTable.removeAt(0); // Remove header row
+    csvTable.removeAt(0);
     _safety = csvTable.map((row) {
       return Safety(
         line: row[8].toString(),
@@ -161,10 +134,14 @@ class _MyHomePageState extends State<MyHomePage> {
       _isSidebarOpen = !_isSidebarOpen;
     });
   }
-
-
-
-
+/*
+IMPORTANNT IMPORTANT IMPORTANT
+Since due to lack of time we werent able to create the api for ml model so for
+the time being we have used to ml model to predict the answers and edited it to
+the csv and we are printing on the Sreen on the basis of those predefined ml
+ model's result ,as we get more time ,the ml model's api will also be integrated
+ and the result will be directly posted from ml api to the popup window
+*/
   Future<void> _openPopUpWindow(int selectedIndex) async {
     String popupMessage = '';
 
@@ -185,14 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        // String column8Value = _safety[selectedIndex].line; // Get the value from _safety list
+
         return AlertDialog(
           title: const Text('Popup Window'),
           content: Text(popupMessage),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the popup window
+                Navigator.pop(context);
               },
               child: const Text('Close'),
             ),
@@ -294,7 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () async {
               if (_markers.isNotEmpty) {
-                await _openPopUpWindow(_selectedListIndex); // Pass the selected index (e.g., 0)
+                await _openPopUpWindow(_selectedListIndex);
               }
             },
             child: const Icon(Icons.message),
