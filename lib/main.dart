@@ -1,4 +1,33 @@
 import 'package:flutter/material.dart';
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Stack(
+//         children: [
+//           MapWidget(), // Full-screen map
+//           HomePage(), // Overlay home page content
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+//
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
+//
+// class _HomePageState extends State<HomePage> {
+//   bool _isSidebarOpen = false;
+//   bool _isSearchBarOpen = false;
+//
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -7,7 +36,12 @@ import 'package:csv/csv.dart';
 void main() {
   runApp(MyApp());
 }
-
+class Safety{
+  late final String line;
+  Safety({
+    required this.line,
+  });
+}
 class LocationData {
   final String name;
   final double latitude;
@@ -29,6 +63,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -38,11 +73,13 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController? _mapController;
   Set<Marker> _markers = {};
   List<LocationData> _locations = [];
+  List<Safety> _safety = [];
 
   static const CameraPosition initialCameraPosition = CameraPosition(
     target: LatLng(19.174472, 72.866), // San Francisco's coordinates
     zoom: 15,
   );
+  int _selectedListIndex = 0; // Default value
 
   bool _isLocationMenuOpen = false;
   bool _isOverlayOpen = false;
@@ -54,12 +91,23 @@ class _MyHomePageState extends State<MyHomePage> {
     _loadLocations();
     _getCurrentLocation();
   }
+  String getColumn8Value(int selectedIndex, List<List<dynamic>> csvTable) {
+    if (selectedIndex >= 0 && selectedIndex < csvTable.length) {
+      return csvTable[selectedIndex][8].toString();
+    } else {
+      return 'Invalid index';
+    }
+  }
 
   Future<void> _loadLocations() async {
     final String data = await rootBundle.loadString('assets/anaums.csv');
     List<List<dynamic>> csvTable = CsvToListConverter().convert(data);
     csvTable.removeAt(0); // Remove header row
-
+    _safety = csvTable.map((row) {
+      return Safety(
+        line: row[8].toString(),
+      );
+    }).toList();
     _locations = csvTable.map((row) {
       return LocationData(
         name: row[1].toString(),
@@ -68,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }).toList();
   }
+
 
   Future<void> _getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -113,13 +162,33 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _openPopUpWindow() {
-    showDialog(
+
+
+
+  Future<void> _openPopUpWindow(int selectedIndex) async {
+    String popupMessage = '';
+
+    if (_selectedListIndex >= 0 && _selectedListIndex < _safety.length) {
+      String safetyValue = _safety[_selectedListIndex].line;
+      if (safetyValue == '1') {
+        popupMessage = 'Safe';
+      } else if (safetyValue == '2') {
+        popupMessage = 'Unsafe';
+      } else if (safetyValue == '0') {
+        popupMessage = 'Neutral';
+      } else {
+        popupMessage = 'Unknown';
+      }
+    } else {
+      popupMessage = 'Invalid index';
+    }
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
+        // String column8Value = _safety[selectedIndex].line; // Get the value from _safety list
         return AlertDialog(
           title: Text('Popup Window'),
-          content: Text('This is a popup window.'),
+          content: Text(popupMessage),
           actions: [
             TextButton(
               onPressed: () {
@@ -147,7 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               "VIGILANCE",
               style: TextStyle(
-                fontFamily: 'MyFont',
                 fontSize: 30,
                 color: Colors.black,
               ),
@@ -164,6 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             markers: _markers,
           ),
+
           if (_isSidebarOpen)
             Positioned(
               top: AppBar().preferredSize.height - 56,
@@ -208,6 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
         ],
       ),
       floatingActionButton: Column(
@@ -222,7 +292,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 16),
           FloatingActionButton(
-            onPressed: _openPopUpWindow, // Open the popup window
+            onPressed: () async {
+              if (_markers.isNotEmpty) {
+                await _openPopUpWindow(_selectedListIndex); // Pass the selected index (e.g., 0)
+              }
+            },
             child: Icon(Icons.message),
           ),
         ],
@@ -242,6 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   return ListTile(
                     title: Text(_locations[index].name),
                     onTap: () {
+                      _selectedListIndex = index;
                       _onLocationSelected(_locations[index]);
                       _toggleLocationMenu();
                     },
@@ -259,7 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildSidebar() {
     return Container(
         width: _isSidebarOpen ? 500 : 20,
-        color: Color(0xFF000000),
+        color: const Color(0xFF000000),
     child: Column(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
@@ -326,15 +401,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-  }
-}
-
+  }}
 class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('This is Notifications Page'),
+        title: Text('THis is Notifications Page'),
       ),
       body: Center(
         child: Text('This is the notifications page.'),
@@ -356,4 +429,75 @@ class ContactPage extends StatelessWidget {
     );
   }
 }
+
+//   void _toggleSearchBar() {
+//     setState(() {
+//       _isSearchBarOpen = !_isSearchBarOpen;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Colors.transparent,
+//         elevation: 0,
+//         title: Image.asset(
+//           'assets/logo.png',
+//           width: 40,
+//         ),
+//       ),
+//       body: Stack(
+//         children: [
+//           MapWidget(), // Move the map widget to the bottom of the stack
+//
+//
+//           if (_isSearchBarOpen)
+//             Positioned(
+//                 top: AppBar().preferredSize.height - 40,
+//                 right: 85, // Adjust the right position
+//                 child: AnimatedOpacity(
+//                   opacity: _isSidebarOpen ? 0 : 1,
+//                   duration: Duration(milliseconds: 500),
+//                   child:
+//                   CustomSearchBar(), // Use your custom search bar widget here
+//                 ),
+//               ),
+//
+//
+//           Positioned(
+//             top: AppBar().preferredSize.height - 48, // Adjust the top padding
+//             right: 25,
+//             child: ElevatedButton(
+//               onPressed: _toggleSearchBar,
+//               style: ElevatedButton.styleFrom(
+//                 primary: Colors.white, // Set the background color to transparent
+//                 shape: CircleBorder(),
+//                 padding: EdgeInsets.all( 6), // Adjust padding for the icon
+//               ),
+//               child: Icon(Icons.search, color: Colors.black),
+//             ),
+//           ),
+//           Positioned(
+//             // Add the SlidingUpPanel here
+//             bottom: 0,
+//             left: 0,
+//             right: 0,
+//             height: 65,
+//             child: SlidingPanel(
+//               panelContent: Container(
+//                 // Customize your panel content here
+//                 child: Center(
+//                   child: Text('Sliding Panel Content'),
+//                 ),
+//               ),
+//             ),),
+//
+//         ],
+//       ),
+//     );
+//   }
+//
+
+
 
