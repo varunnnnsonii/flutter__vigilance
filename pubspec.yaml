@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^2.1.0
+  flython: ^0.2.0
   geolocator: ^8.0.1
   google_maps_webservice: ^0.0.20-nullsafety.4
   csv: ^5.0.2
