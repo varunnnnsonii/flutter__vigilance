@@ -1,33 +1,4 @@
 import 'package:flutter/material.dart';
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Stack(
-//         children: [
-//           MapWidget(), // Full-screen map
-//           HomePage(), // Overlay home page content
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-//
-// class HomePage extends StatefulWidget {
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-//
-// class _HomePageState extends State<HomePage> {
-//   bool _isSidebarOpen = false;
-//   bool _isSearchBarOpen = false;
-//
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -142,13 +113,46 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _openPopUpWindow() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Popup Window'),
+          content: Text('This is a popup window.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the popup window
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'assets/logo.png',
-          width: 40,
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 40,
+            ),
+            SizedBox(width: 100),
+            Text(
+              "VIGILANCE",
+              style: TextStyle(
+                fontFamily: 'MyFont',
+                fontSize: 30,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
       ),
       body: Stack(
@@ -160,7 +164,6 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             markers: _markers,
           ),
-
           if (_isSidebarOpen)
             Positioned(
               top: AppBar().preferredSize.height - 56,
@@ -171,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           Positioned(
             top: AppBar().preferredSize.height - 35,
-            left:25 ,
+            left: 25,
             child: AnimatedOpacity(
               opacity: _isSidebarOpen ? 0 : 1,
               duration: Duration(milliseconds: 500),
@@ -205,14 +208,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _toggleLocationMenu,
-        child: _isLocationMenuOpen
-            ? Icon(Icons.arrow_circle_down)
-            : Icon(Icons.arrow_circle_up),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: _toggleLocationMenu,
+            child: _isLocationMenuOpen
+                ? Icon(Icons.arrow_circle_down)
+                : Icon(Icons.arrow_circle_up),
+          ),
+          SizedBox(height: 16),
+          FloatingActionButton(
+            onPressed: _openPopUpWindow, // Open the popup window
+            child: Icon(Icons.message),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomSheet: _isLocationMenuOpen
@@ -245,33 +258,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildSidebar() {
     return Container(
-      width: _isSidebarOpen ? 500 : 20,
-      color: Color(0xFF000000),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: _toggleSidebar,
-            child: Container(
-
-              padding: EdgeInsets.all(25),
-              child: Icon(
-                _isSidebarOpen ? Icons.menu_open_rounded : Icons.menu,
-                color: Colors.white,
-                size: 32,
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          _buildSidebarButton("Notifications", Icons.notifications_active,
-              _isSidebarOpen),
-          SizedBox(height: 20),
-          _buildSidebarButton("Contact", Icons.contact_support_outlined,
-              _isSidebarOpen),
-          SizedBox(height: 20),
-          _buildSidebarButton("Change Theme", Icons.sunny, _isSidebarOpen),
-        ],
-      ),
+        width: _isSidebarOpen ? 500 : 20,
+        color: Color(0xFF000000),
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+    GestureDetector(
+    onTap: _toggleSidebar,
+    child: Container(
+    padding: EdgeInsets.all(25),
+    child: Icon(
+    _isSidebarOpen ? Icons.menu_open_rounded : Icons.menu,
+    color: Colors.white,
+    size: 32,
+    ),
+    ),
+    ),
+    SizedBox(height:20
+    ),
+      SizedBox(height: 20),
+      _buildSidebarButton(
+          "Notifications", Icons.notifications_active, _isSidebarOpen),
+      SizedBox(height: 20),
+      _buildSidebarButton("Contact", Icons.contact_support_outlined, _isSidebarOpen),
+      SizedBox(height: 20),
+      _buildSidebarButton("Change Theme", Icons.sunny, _isSidebarOpen),
+    ],
+    ),
     );
   }
 
@@ -313,13 +326,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-  }}
+  }
+}
+
 class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('THis is Notifications Page'),
+        title: Text('This is Notifications Page'),
       ),
       body: Center(
         child: Text('This is the notifications page.'),
@@ -327,6 +342,7 @@ class NotificationsPage extends StatelessWidget {
     );
   }
 }
+
 class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -340,75 +356,4 @@ class ContactPage extends StatelessWidget {
     );
   }
 }
-
-//   void _toggleSearchBar() {
-//     setState(() {
-//       _isSearchBarOpen = !_isSearchBarOpen;
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//         title: Image.asset(
-//           'assets/logo.png',
-//           width: 40,
-//         ),
-//       ),
-//       body: Stack(
-//         children: [
-//           MapWidget(), // Move the map widget to the bottom of the stack
-//
-//
-//           if (_isSearchBarOpen)
-//             Positioned(
-//                 top: AppBar().preferredSize.height - 40,
-//                 right: 85, // Adjust the right position
-//                 child: AnimatedOpacity(
-//                   opacity: _isSidebarOpen ? 0 : 1,
-//                   duration: Duration(milliseconds: 500),
-//                   child:
-//                   CustomSearchBar(), // Use your custom search bar widget here
-//                 ),
-//               ),
-//
-//
-//           Positioned(
-//             top: AppBar().preferredSize.height - 48, // Adjust the top padding
-//             right: 25,
-//             child: ElevatedButton(
-//               onPressed: _toggleSearchBar,
-//               style: ElevatedButton.styleFrom(
-//                 primary: Colors.white, // Set the background color to transparent
-//                 shape: CircleBorder(),
-//                 padding: EdgeInsets.all( 6), // Adjust padding for the icon
-//               ),
-//               child: Icon(Icons.search, color: Colors.black),
-//             ),
-//           ),
-//           Positioned(
-//             // Add the SlidingUpPanel here
-//             bottom: 0,
-//             left: 0,
-//             right: 0,
-//             height: 65,
-//             child: SlidingPanel(
-//               panelContent: Container(
-//                 // Customize your panel content here
-//                 child: Center(
-//                   child: Text('Sliding Panel Content'),
-//                 ),
-//               ),
-//             ),),
-//
-//         ],
-//       ),
-//     );
-//   }
-//
-
-
 
