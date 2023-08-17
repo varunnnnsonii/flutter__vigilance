@@ -14,7 +14,7 @@ class LocationData {
   final double longitude;
 
   LocationData({
-    required this.name,
+    required this.name, // The location name should match exactly
     required this.latitude,
     required this.longitude,
   });
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -112,14 +113,30 @@ class _MyHomePageState extends State<MyHomePage> {
       _isSidebarOpen = !_isSidebarOpen;
     });
   }
+  void _openPopUpWindow(LocationData location) {
+    String locationName = location.name;
 
-  void _openPopUpWindow() {
+    String statusText;
+    switch (locationName) {
+      case "Aarey Road goregaon east":
+        statusText = "UNSAFE";
+        break;
+      case "Arun Kumar Vaidya Marg":
+        statusText = "NEUTRAL";
+        break;
+      case "Yashodham Vidyala Marg":
+        statusText = "UNSAFE";
+        break;
+      default:
+        statusText = "UNKNOWN"; // Handle other locations if needed
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Popup Window'),
-          content: Text('This is a popup window.'),
+          content: Text(statusText),
           actions: [
             TextButton(
               onPressed: () {
@@ -132,8 +149,27 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+  // String _getStatusText(LocationData location, int columnIndex) {
+  //   double value = _locations[_locations.indexOf(location)].longitude;
+  //   print("Extracted value: $value");
+  //
+  //   int intValue = value.toInt();
+  //   print("Int value: $intValue");
+  //
+  //   switch (intValue) {
+  //     case 0:
+  //       return "NEUTRAL";
+  //     case 1:
+  //       return "SAFE";
+  //     case 2:
+  //       return "UNSAFE ROUTE";
+  //     default:
+  //       return "UNKNOWN"; // Handle other values if needed
+  //   }
+  // }
 
-  @override
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -147,7 +183,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               "VIGILANCE",
               style: TextStyle(
-                fontFamily: 'MyFont',
                 fontSize: 30,
                 color: Colors.black,
               ),
@@ -222,7 +257,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 16),
           FloatingActionButton(
-            onPressed: _openPopUpWindow, // Open the popup window
+            onPressed: () {
+              if (_locations.isNotEmpty) {
+                _openPopUpWindow(_locations[0]); // Use the first location as an example
+              }
+            },
             child: Icon(Icons.message),
           ),
         ],
