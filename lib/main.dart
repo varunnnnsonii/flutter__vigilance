@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _loadLocations() async {
     final String data = await rootBundle.loadString('assets/anaums.csv');
-    List<List<dynamic>> csvTable = CsvToListConverter().convert(data);
+    List<List<dynamic>> csvTable = const CsvToListConverter().convert(data);
     csvTable.removeAt(0); // Remove header row
     _safety = csvTable.map((row) {
       return Safety(
@@ -187,14 +187,14 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         // String column8Value = _safety[selectedIndex].line; // Get the value from _safety list
         return AlertDialog(
-          title: Text('Popup Window'),
+          title: const Text('Popup Window'),
           content: Text(popupMessage),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context); // Close the popup window
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -212,8 +212,8 @@ class _MyHomePageState extends State<MyHomePage> {
               'assets/logo.png',
               width: 40,
             ),
-            SizedBox(width: 100),
-            Text(
+            const SizedBox(width: 100),
+            const Text(
               "VIGILANCE",
               style: TextStyle(
                 fontSize: 30,
@@ -246,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
             left: 25,
             child: AnimatedOpacity(
               opacity: _isSidebarOpen ? 0 : 1,
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: GestureDetector(
                 onTap: _toggleSidebar,
                 child: Icon(
@@ -269,8 +269,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   width: MediaQuery.of(context).size.width * 0.8,
-                  padding: EdgeInsets.all(16),
-                  child: Text(
+                  padding: const EdgeInsets.all(16),
+                  child: const Text(
                     'This is a placeholder message for the overlay.',
                     textAlign: TextAlign.center,
                   ),
@@ -287,17 +287,17 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: _toggleLocationMenu,
             child: _isLocationMenuOpen
-                ? Icon(Icons.arrow_circle_down)
-                : Icon(Icons.arrow_circle_up),
+                ? const Icon(Icons.arrow_circle_down)
+                : const Icon(Icons.arrow_circle_up),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             onPressed: () async {
               if (_markers.isNotEmpty) {
                 await _openPopUpWindow(_selectedListIndex); // Pass the selected index (e.g., 0)
               }
             },
-            child: Icon(Icons.message),
+            child: const Icon(Icons.message),
           ),
         ],
       ),
@@ -308,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.white,
         child: Column(
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: _locations.length,
@@ -341,7 +341,7 @@ class _MyHomePageState extends State<MyHomePage> {
     GestureDetector(
     onTap: _toggleSidebar,
     child: Container(
-    padding: EdgeInsets.all(25),
+    padding: const EdgeInsets.all(25),
     child: Icon(
     _isSidebarOpen ? Icons.menu_open_rounded : Icons.menu,
     color: Colors.white,
@@ -349,14 +349,14 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
     ),
     ),
-    SizedBox(height:20
+    const SizedBox(height:20
     ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildSidebarButton(
           "Notifications", Icons.notifications_active, _isSidebarOpen),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildSidebarButton("Contact", Icons.contact_support_outlined, _isSidebarOpen),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       _buildSidebarButton("Change Theme", Icons.sunny, _isSidebarOpen),
     ],
     ),
@@ -379,21 +379,19 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         _toggleSidebar();
       },
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+          ),
+          if (showText) const SizedBox(width: 10),
+          if (showText)
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white),
             ),
-            if (showText) SizedBox(width: 10),
-            if (showText)
-              Text(
-                title,
-                style: TextStyle(color: Colors.white),
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -407,9 +405,9 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('THis is Notifications Page'),
+        title: const Text('THis is Notifications Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('This is the notifications page.'),
       ),
     );
@@ -421,9 +419,9 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact Page'),
+        title: const Text('Contact Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('This is the contact page.'),
       ),
     );
