@@ -1,0 +1,457 @@
+[
+  {
+    "Distance from Police Station (km)": 0.5,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 5
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.6,
+    "Crime Rate": 1.3,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.7,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 2,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.7,
+    "Crime Rate": 0.8,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.4,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.5,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 5
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.6,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.4,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.3,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.7,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.7,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 2,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.9,
+    "Crime Rate": 2.5,
+    "Number of CCTV Cameras": 10
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.8,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 5
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.8,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 5
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.9,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.4,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.7,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.3,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.9,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.4,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.7,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.5,
+    "Crime Rate": 2,
+    "Number of CCTV Cameras": 6
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 7
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.1,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.8,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.5,
+    "Number of CCTV Cameras": 5
+  },
+  {
+    "Distance from Police Station (km)": 0.4,
+    "Crime Rate": 0.5,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 1.8,
+    "Number of CCTV Cameras": 4
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.3,
+    "Number of CCTV Cameras": 1
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 0.9,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.7,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.1,
+    "Crime Rate": 0.6,
+    "Number of CCTV Cameras": 2
+  },
+  {
+    "Distance from Police Station (km)": 0.3,
+    "Crime Rate": 1.2,
+    "Number of CCTV Cameras": 3
+  },
+  {
+    "Distance from Police Station (km)": 0.2,
+    "Crime Rate": 0.4,
+    "Number of CCTV Cameras": 1
+  }
+]

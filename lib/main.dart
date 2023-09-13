@@ -1,37 +1,13 @@
 import 'package:flutter/material.dart';
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Stack(
-//         children: [
-//           MapWidget(), // Full-screen map
-//           HomePage(), // Overlay home page content
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-//
-// class HomePage extends StatefulWidget {
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-//
-// class _HomePageState extends State<HomePage> {
-//   bool _isSidebarOpen = false;
-//   bool _isSearchBarOpen = false;
-//
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
+import 'package:http/http.dart' as http;
+
+import 'notification.dart';
+import 'notification_storage.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,11 +22,17 @@ class LocationData {
   final String name;
   final double latitude;
   final double longitude;
+  final double distance; // Add this property
+  final double crimeRate; // Add this property
+  final int cctvCameras; // Add this property
 
   LocationData({
     required this.name,
     required this.latitude,
     required this.longitude,
+    required this.distance,
+    required this.crimeRate,
+    required this.cctvCameras, // Add this property
   });
 }
 
@@ -73,13 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
   GoogleMapController? _mapController;
   Set<Marker> _markers = {};
   List<LocationData> _locations = [];
-  List<Safety> _safety = [];
+
 
   static const CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(19.174472, 72.866), // San Francisco's coordinates
+    target: LatLng(19.174472, 72.866),
     zoom: 15,
   );
-  int _selectedListIndex = 0; // Default value
+  int _selectedListIndex = 0;
 
   bool _isLocationMenuOpen = false;
   bool _isOverlayOpen = false;
@@ -102,18 +84,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _loadLocations() async {
     final String data = await rootBundle.loadString('assets/anaums.csv');
     List<List<dynamic>> csvTable = const CsvToListConverter().convert(data);
-    csvTable.removeAt(0); // Remove header row
-    _safety = csvTable.map((row) {
-      return Safety(
-        line: row[8].toString(),
-      );
-    }).toList();
+    csvTable.removeAt(0);
+
     _locations = csvTable.map((row) {
       return LocationData(
         name: row[1].toString(),
         latitude: double.parse(row[3].toString()),
         longitude: double.parse(row[4].toString()),
+        distance: double.parse(row[5].toString()), // Assuming it's in the 6th column
+        crimeRate: double.parse(row[6].toString()), // Assuming it's in the 7th column
+        cctvCameras: int.parse(row[7].toString()),
       );
+
+
     }).toList();
   }
 
@@ -161,46 +144,98 @@ class _MyHomePageState extends State<MyHomePage> {
       _isSidebarOpen = !_isSidebarOpen;
     });
   }
-
-
-
-
+/*
+IMPORTANNT IMPORTANT IMPORTANT
+Since due to lack of time we werent able to create the api for ml model so for
+the time being we have used to ml model to predict the answers and edited it to
+the csv and we are printing on the Sreen on the basis of those predefined ml
+ model's result ,as we get more time ,the ml model's api will also be integrated
+ and the result will be directly posted from ml api to the popup window
+*/
   Future<void> _openPopUpWindow(int selectedIndex) async {
-    String popupMessage = '';
+    // Check if the selected index is within valid range
+    if (selectedIndex >= 0 && selectedIndex < _locations.length) {
+      double distance = _locations[selectedIndex].distance;
+      double crimeRate = _locations[selectedIndex].crimeRate;
+      int cctvCameras = _locations[selectedIndex].cctvCameras;
 
-    if (_selectedListIndex >= 0 && _selectedListIndex < _safety.length) {
-      String safetyValue = _safety[_selectedListIndex].line;
-      if (safetyValue == '1') {
-        popupMessage = 'Safe';
-      } else if (safetyValue == '2') {
-        popupMessage = 'Unsafe';
-      } else if (safetyValue == '0') {
-        popupMessage = 'Neutral';
+      // Make your API call with these values
+      final response = await http.post(
+        Uri.parse('http:// 192.168.137.81:8000/predict'),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "Distance": distance,
+          "Crime_Rate": crimeRate,
+          "CCTV_Cameras": cctvCameras,
+        }),
+      );
+
+      // Process the response and show the dialog
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        String popupMessage = data['prediction'];
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Popup Window'),
+              content: Text(popupMessage),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
+        await NotificationManager.createNotification(popupMessage);
+        await NotificationStorage.addNotification(popupMessage);
       } else {
-        popupMessage = 'Unknown';
+        String popupMessage = 'Error: ${response.statusCode}';
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Popup Window'),
+              content: Text(popupMessage),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } else {
-      popupMessage = 'Invalid index';
+      // Handle invalid index
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Popup Window'),
+            content: const Text('Invalid index'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
     }
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // String column8Value = _safety[selectedIndex].line; // Get the value from _safety list
-        return AlertDialog(
-          title: const Text('Popup Window'),
-          content: Text(popupMessage),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the popup window
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +329,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () async {
               if (_markers.isNotEmpty) {
-                await _openPopUpWindow(_selectedListIndex); // Pass the selected index (e.g., 0)
+                await _openPopUpWindow(_selectedListIndex);
               }
             },
             child: const Icon(Icons.message),

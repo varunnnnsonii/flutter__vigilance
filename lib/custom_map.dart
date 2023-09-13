@@ -27,9 +27,9 @@ class _CustomMapWidgetState extends State<CustomMapWidget> {
     for (var row in csvTable) {
       _markers.add(
         Marker(
-          markerId: MarkerId(row[0].toString()), // Assuming column 0 has unique IDs
-          position: LatLng(row[3], row[4]), // Latitude and Longitude
-          infoWindow: InfoWindow(title: row[1].toString()), // Assuming column 1 has location names
+          markerId: MarkerId(row[0].toString()),
+          position: LatLng(row[3], row[4]),
+          infoWindow: InfoWindow(title: row[1].toString()),
         ),
       );
     }
