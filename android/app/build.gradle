@@ -29,7 +29,7 @@ android {
 
     namespace "com.example.vigilance2"
     compileSdkVersion flutter.compileSdkVersion
-    ndkVersion "25.1.8937393"
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
