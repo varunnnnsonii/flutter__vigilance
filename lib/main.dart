@@ -6,6 +6,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
 import 'package:http/http.dart' as http;
 
+import 'notification.dart';
+import 'notification_storage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -158,7 +161,7 @@ the csv and we are printing on the Sreen on the basis of those predefined ml
 
       // Make your API call with these values
       final response = await http.post(
-        Uri.parse('http://192.168.0.105:8000/predict'),
+        Uri.parse('http:// 192.168.137.81:8000/predict'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "Distance": distance,
@@ -188,6 +191,8 @@ the csv and we are printing on the Sreen on the basis of those predefined ml
             );
           },
         );
+        await NotificationManager.createNotification(popupMessage);
+        await NotificationStorage.addNotification(popupMessage);
       } else {
         String popupMessage = 'Error: ${response.statusCode}';
         await showDialog(
@@ -220,6 +225,7 @@ the csv and we are printing on the Sreen on the basis of those predefined ml
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+
                 },
                 child: const Text('Close'),
               ),
