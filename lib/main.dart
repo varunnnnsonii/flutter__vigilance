@@ -161,7 +161,7 @@ the csv and we are printing on the Sreen on the basis of those predefined ml
 
       // Make your API call with these values
       final response = await http.post(
-        Uri.parse('http:// 192.168.137.81:8000/predict'),
+        Uri.parse('http:// 192.168.0.105:8000/predict'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "Distance": distance,
